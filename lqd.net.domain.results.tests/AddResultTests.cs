@@ -35,6 +35,9 @@ namespace lqd.net.domain.results.tests {
         // (done) then will not apply the transformation if it is already an error
         // (done) passing an null then function is not valid 
 
+        // then will apply then action if it is a success
+
+
         // The async
 
         //  :: AR<P> -> ( P -> T<Q> ) -> T<AR<Q>>

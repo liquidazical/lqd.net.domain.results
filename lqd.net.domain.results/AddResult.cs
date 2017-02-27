@@ -28,6 +28,21 @@ namespace lqd.net.domain.results {
             return new Error( errors  );
         }
 
+
+        public AddResult<P> Then
+                              ( Action<P> a ) {
+
+            if( a == null ) throw new ArgumentNullException( nameof( a ) );
+
+
+            return Then( value => {
+
+                a( value );
+                return value;
+            });
+
+        }
+
         public AddResult<Q> Then<Q>
                               ( Func<P,Q> f ) {
 
