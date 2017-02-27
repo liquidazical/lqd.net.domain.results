@@ -9,6 +9,8 @@ Is a .net assembly that contains result types that may be returned from a domain
 
 The idea is that success and error paths are identified by the different outcomes supported by a result, this leaves exceptions to be just treat as exceptional cases i.e. an exception is an internal server error.
 
+**Note**: The authorisaztion failure outcome is currently not implemented yet.
+
 
 ### AddResult
 

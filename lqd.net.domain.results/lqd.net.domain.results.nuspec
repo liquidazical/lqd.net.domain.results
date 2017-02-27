@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>0.1.0</version>
+    <title>lqd.net.domain.results</title>
+    <authors>Paul Moore</authors>
+    <projectUrl>https://github.com/liquidazical/lqd.net.domain.results</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A result types for domain commands and queries</description>
+    <releaseNotes>
+      ### Vr  0.1.0
+
+      * AddResult
+      * RemoveResult
+      * SearchResult
+      * UpdateResult
+    </releaseNotes>
+    <copyright>Copyright 2017</copyright>
+  </metadata>
+</package>
