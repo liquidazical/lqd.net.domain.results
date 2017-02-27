@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lqd.net.domain.results", "lqd.net.domain.results\lqd.net.domain.results.csproj", "{80BD2B8C-4F9F-4513-A3B8-559523C212AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lqd.net.domain.results.tests", "lqd.net.domain.results.tests\lqd.net.domain.results.tests.csproj", "{51F246CE-5B05-45A3-9CE7-1555CB5F04C4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{80BD2B8C-4F9F-4513-A3B8-559523C212AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80BD2B8C-4F9F-4513-A3B8-559523C212AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80BD2B8C-4F9F-4513-A3B8-559523C212AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80BD2B8C-4F9F-4513-A3B8-559523C212AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51F246CE-5B05-45A3-9CE7-1555CB5F04C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51F246CE-5B05-45A3-9CE7-1555CB5F04C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51F246CE-5B05-45A3-9CE7-1555CB5F04C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51F246CE-5B05-45A3-9CE7-1555CB5F04C4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
