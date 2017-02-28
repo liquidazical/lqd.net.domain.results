@@ -32,6 +32,32 @@ namespace lqd.net.domain.results {
         }
 
 
+        public SearchResult<P> Then
+                                ( Action a ) {
+
+            if( a == null ) throw new ArgumentNullException( nameof( a ) );
+
+
+            return Then( value => {
+                a();
+                return value;
+            });
+
+        }
+
+        public SearchResult<P> Then
+                                ( Action<P> a ) {
+
+            if( a == null ) throw new ArgumentNullException( nameof( a ) );
+
+
+            return Then( value => {
+                a( value );
+                return value;
+            });
+
+        }
+
         public SearchResult<Q> Then<Q>
                                 ( Func<P,Q> f ) {
 

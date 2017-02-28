@@ -33,6 +33,31 @@ namespace lqd.net.domain.results {
             return new Error( errors );
         }
 
+
+        public UpdateResult<P> Then
+                                ( Action a ) {
+
+            if( a == null ) throw new ArgumentNullException( nameof( a ) );
+
+
+            return Then( value => {
+                a();
+                return value;
+            });
+        }
+
+        public UpdateResult<P> Then
+                                ( Action<P> a ) {
+
+            if( a == null ) throw new ArgumentNullException( nameof( a ) );
+
+
+            return Then( value => {
+                a( value );
+                return value;
+            });
+        }
+
         public UpdateResult<Q> Then<Q>
                                 ( Func<P,Q> f ) {
 

@@ -7,6 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lqd.net.domain.results", "l
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lqd.net.domain.results.tests", "lqd.net.domain.results.tests\lqd.net.domain.results.tests.csproj", "{51F246CE-5B05-45A3-9CE7-1555CB5F04C4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{571FEB0A-8428-4825-AA9D-57126716F6B9}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		Reademe.md = Reademe.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

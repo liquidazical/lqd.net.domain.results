@@ -1,5 +1,4 @@
-﻿using lqd.net.domain.results;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -35,7 +34,8 @@ namespace lqd.net.domain.results.tests {
         // (done) then will not apply the transformation if it is already an error
         // (done) passing an null then function is not valid 
 
-        // then will apply then action if it is a success
+        // (done) then with an action that accepts no arguments will apply the action if it is a success
+        // (done) then with an action that accepts no arguments will ignore the action if it is not a success
 
 
         // The async
@@ -292,7 +292,33 @@ namespace lqd.net.domain.results.tests {
                  );
         }
 
+        [Fact]
+        public void then_with_an_action_that_accepts_no_arguments_will_apply_the_action_if_it_is_a_success() {
 
+            var action_applied = false;
+            var result = AddResult<object>.WasSuccess( new object() );  
+
+
+            result
+                .Then( () => action_applied = true );
+                
+
+            Assert.True( action_applied );
+
+        }
+
+        [Fact]
+        public void then_with_an_action_that_accepts_no_arguments_will_ignore_the_action_if_it_is_not_a_success() {
+
+            var action_applied = false;
+            var result = AddResult<object>.WasError( new TestError() );
+
+            result
+                .Then( () => action_applied = true );
+
+
+            Assert.False( action_applied );
+        }
 
         public class TestError : ResultError { }
 

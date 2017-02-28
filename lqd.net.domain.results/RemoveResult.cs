@@ -35,6 +35,34 @@ namespace lqd.net.domain.results {
             return new Error( errors );
         }
 
+        public RemoveResult<P> Then
+                                ( Action a ) {
+
+            if( a == null ) throw new ArgumentNullException( nameof( a ) );
+
+
+            return Then( value => {
+                a();
+                return value;
+            });
+
+        }
+
+        public RemoveResult<P> Then
+                                ( Action<P> a ) {
+
+            if( a == null ) throw new ArgumentNullException( nameof( a ) );
+
+
+            return Then( value => {
+                a( value );
+                return value;
+            });
+
+        }
+
+
+
         public RemoveResult<Q> Then<Q>
                                 ( Func<P,Q> f ) {
 

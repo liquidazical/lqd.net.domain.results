@@ -48,6 +48,10 @@ Is an result returned from a domain command that modifies state. It supports the
  ### Next Version
 
  * AddResult - Then that accepts an action has been added.
+ * RemoveResult - Then that accepts an action has been added.
+ * SearchResult - Then that accepts an action has been added.
+ * UpdateResult - Then that accepts an action has been added.
+ * Has - On a collection of Result errors you can call has to see if it contains an error of a specific type.
 
  ### Vr  0.1.0
  

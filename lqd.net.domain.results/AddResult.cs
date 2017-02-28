@@ -28,6 +28,15 @@ namespace lqd.net.domain.results {
             return new Error( errors  );
         }
 
+        public AddResult<P> Then
+                             ( Action a ) {
+
+            return Then( value => {
+                a();
+                return value;
+            } );
+
+        }
 
         public AddResult<P> Then
                               ( Action<P> a ) {
