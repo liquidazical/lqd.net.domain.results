@@ -47,6 +47,9 @@ Is an result returned from a domain command that modifies state. It supports the
 
  ### Next Version
 
+
+ ### Vr 0.2.1
+
  * AddResult - Then that accepts an action has been added.
  * RemoveResult - Then that accepts an action has been added.
  * RemoveResult - Remove the error option.

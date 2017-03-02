@@ -9,6 +9,15 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A result types for domain commands and queries</description>
     <releaseNotes>
+      ### Vr 0.2.1
+
+      * AddResult - Then that accepts an action has been added.
+      * RemoveResult - Then that accepts an action has been added.
+      * RemoveResult - Remove the error option.
+      * SearchResult - Then that accepts an action has been added.
+      * UpdateResult - Then that accepts an action has been added.
+      * Has - On a collection of Result errors you can call has to see if it contains an error of a specific type.
+
       ### Vr  0.1.0
 
       * AddResult
