@@ -45,8 +45,7 @@ namespace lqd.net.domain.results.tests {
             result
                 .Match(
                     success: value => Assert.Equal( expected, value ),
-                    notFound: () => Assert.False( true ),
-                    error: errors => Assert.False( true )
+                    notFound: () => Assert.False( true )                    
                 );
 
         }
@@ -59,41 +58,12 @@ namespace lqd.net.domain.results.tests {
             result
                 .Match(
                     success: value => Assert.False( true ),
-                    notFound: () => Assert.True( true ),
-                    error: errors => Assert.False( true )
+                    notFound: () => Assert.True( true )
+                    
                 );
 
         }
 
-        [Fact]
-        public void can_create_an_error_result_for_a_single_error() {
-            var error = new RemoveError();
-            var result = RemoveResult<object>.WasError( error );
-
-            result
-                .Match( 
-                    success: value => Assert.False( true ),
-                    notFound: () => Assert.False( true ),
-                    error: errors => Assert.True( errors.Contains( error ) )   
-                );
-
-        }
-
-        [Fact]
-        public void can_create_an_error_from_multiple_errors() {
-
-            var errors = new [] { new RemoveError(), new RemoveError() };
-            var result = RemoveResult<object>.WasError( errors );
-
-
-            result
-                .Match(
-                    success: value => Assert.False( true ),
-                    notFound: () => Assert.False( true ) ,
-                    error: errs => Assert.Equal( errors, errs )
-                );
-
-        }
 
         [Fact]
         public void passing_a_null_success_value_is_not_valid() {
@@ -105,48 +75,10 @@ namespace lqd.net.domain.results.tests {
         }
 
         [Fact]
-        public void passing_a_null_error_is_not_valid () {
-
-            var error = (ResultError)null;
-            var act = (Action)( () => RemoveResult<object>.WasError( error ) );
-
-            Assert.Throws<ArgumentNullException>( act );
-        }
-
-        [Fact]
-        public void passing_a_null_collection_of_errors_is_not_valid() {
-            var errors = (IEnumerable<ResultError>)null;
-            var act = (Action)( () => RemoveResult<object>.WasError( errors ) );
-
-            Assert.Throws<ArgumentNullException>( act );
-
-        }
-
-        [Fact]
-        public void passing_an_empty_collection_of_errors_is_not_valid() {
-
-            var errors = Enumerable.Empty<ResultError>();
-            var act = (Action)( () => RemoveResult<object>.WasError( errors ) );
-
-            Assert.Throws<ArgumentException>( act );
-
-
-        }
-
-        [Fact]
-        public void passing_a_null_success_action_to_match_is_invalid() {
-            var result = RemoveResult<object>.WasSuccess( new object() );
-            var act = (Action)( () => result.Match( null, () => { }, errs => { } ) );
-
-            Assert.Throws<ArgumentNullException>( act );
-
-        }
-
-        [Fact]
         public void passing_a_null_success_function_to_match_is_invalid() {
             var unit = new object();
             var result = RemoveResult<object>.WasSuccess( new object() );
-            var act = (Action)( () => result.Match( null, () => unit, errs => unit ));
+            var act = (Action)( () => result.Match( null, () => unit ));
 
             Assert.Throws<ArgumentNullException>( act );
 
@@ -156,7 +88,7 @@ namespace lqd.net.domain.results.tests {
         public void passing_a_null_not_found_action_to_match_is_invalid() {
 
             var result = RemoveResult<object>.WasSuccess( new object() );
-            var act = (Action)( () => result.Match( v => { }, null, e => { } ) );
+            var act = (Action)( () => result.Match( v => { }, null ) );
 
             Assert.Throws<ArgumentNullException>( act );
 
@@ -166,29 +98,11 @@ namespace lqd.net.domain.results.tests {
         public void passing_a_null_not_found_function_to_match_is_invalid() {
             var unit = new object();
             var result = RemoveResult<object>.WasSuccess( new object() );
-            var act = (Action)( () => result.Match( v => unit, null, e => unit ));
+            var act = (Action)( () => result.Match( v => unit, null ));
 
             Assert.Throws<ArgumentNullException>( act );
         }
 
-        [Fact]
-        public void passing_a_null_error_action_to_match_in_invalid() {
-
-            var result = RemoveResult<object>.WasSuccess( new object() );
-            var act = (Action)( () => result.Match( v => { }, () => { }, null ) ); 
-
-            Assert.Throws<ArgumentNullException>( act );
-        }
-
-        [Fact]
-        public void passing_a_null_error_function_to_match_is_invalid() {
-
-            var unit = new object();
-            var result = RemoveResult<object>.WasSuccess( new object() );
-            var act = (Action)( () => result.Match( v => unit, () => unit, null ) );
-
-            Assert.Throws<ArgumentNullException>( act );
-        }
 
         [Fact]
         public void then_will_apply_the_transformation_if_it_is_a_success() {
@@ -199,8 +113,7 @@ namespace lqd.net.domain.results.tests {
                 .Then( v => expected )
                 .Match(  
                     success: value => Assert.Equal( expected, value ), 
-                    notFound: () => Assert.False( true ),
-                    error: errors => Assert.False( true )
+                    notFound: () => Assert.False( true )
                 );
 
         }
@@ -213,14 +126,6 @@ namespace lqd.net.domain.results.tests {
             result.Then<object>( v => { throw new Exception(); });
         }
 
-        [Fact]
-        public void then_will_ignore_the_transformation_if_it_is_an_error() {
-
-            var result = RemoveResult<object>.WasError( new ResultError() );
-
-            result.Then<object>( v => { throw new Exception(); });
-
-        }
 
         [Fact]
         public void passing_a_null_to_then_is_invalid() {
@@ -249,7 +154,7 @@ namespace lqd.net.domain.results.tests {
         public void then_with_an_action_that_accepts_no_arguments_will_ignore_the_action_if_it_is_not_a_success() {
 
             var action_applied = false;
-            var result = RemoveResult<object>.WasError( new RemoveError() );
+            var result = RemoveResult<object>.WasNotFound();
 
             result.Then( () => action_applied = true );
 
@@ -268,8 +173,7 @@ namespace lqd.net.domain.results.tests {
                 .Then( () => { } )
                 .Match(
                     success: value => Assert.Equal( expected, value ),
-                    notFound: () => Assert.False( true ),
-                    error: errs => Assert.False( true )  
+                    notFound: () => Assert.False( true )  
                 );
 
         }

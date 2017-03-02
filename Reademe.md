@@ -25,7 +25,7 @@ Is a result returned from a domain command the deletes a entity. It supports the
 
 * Success
 * NotFound ( The client can decied it this is the same a success )
-* Error
+
 
 ### SearchResult
 
@@ -49,6 +49,7 @@ Is an result returned from a domain command that modifies state. It supports the
 
  * AddResult - Then that accepts an action has been added.
  * RemoveResult - Then that accepts an action has been added.
+ * RemoveResult - Remove the error option.
  * SearchResult - Then that accepts an action has been added.
  * UpdateResult - Then that accepts an action has been added.
  * Has - On a collection of Result errors you can call has to see if it contains an error of a specific type.

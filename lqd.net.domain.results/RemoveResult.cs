@@ -20,20 +20,6 @@ namespace lqd.net.domain.results {
             return new NotFound();
         }
 
-        public static RemoveResult<P> WasError
-                                       ( ResultError error ) {
-
-            if( error == null ) throw new ArgumentNullException( nameof( error ) );
-
-
-            return new Error( new [] { error } );
-        }
-
-        public static RemoveResult<P> WasError
-                                        ( IEnumerable<ResultError> errors ) {
-
-            return new Error( errors );
-        }
 
         public RemoveResult<P> Then
                                 ( Action a ) {
@@ -71,39 +57,33 @@ namespace lqd.net.domain.results {
 
             return Match(
                 success: value => RemoveResult<Q>.WasSuccess( f( value ) ),
-                notFound: () => RemoveResult<Q>.WasNotFound(),
-                error: errors => RemoveResult<Q>.WasError( errors )  
+                notFound: () => RemoveResult<Q>.WasNotFound()
             );
         }
 
 
         public void Match
                      ( Action<P> success 
-                     , Action notFound
-                     , Action<IEnumerable<ResultError>> error ) {
+                     , Action notFound ) {
 
             if( success == null ) throw new ArgumentNullException( nameof( success ) );
             if( notFound == null ) throw new ArgumentNullException( nameof( notFound ));
-            if( error == null ) throw new ArgumentNullException( nameof( error ) );
 
 
             var unit = new object();
 
             Match(
                 success: value => { success( value ); return unit; },
-                notFound: () => { notFound(); return unit; },
-                error: errors => { error( errors ); return unit; }
+                notFound: () => { notFound(); return unit; }
             );
         }
 
         public Q Match<Q>
                   ( Func<P,Q> success
-                  , Func<Q> notFound
-                  , Func<IEnumerable<ResultError>,Q> error ) {
+                  , Func<Q> notFound ) {
 
             if( success == null ) throw new ArgumentNullException( nameof( success ) );
             if( notFound == null ) throw new ArgumentNullException( nameof( notFound ) );
-            if( error == null ) throw new ArgumentNullException( nameof( error ) );
 
 
             if( this is Success ) {
@@ -111,9 +91,6 @@ namespace lqd.net.domain.results {
 
             } else if( this is NotFound ) {
                 return notFound( );
-
-            } else if( this is Error ) {
-                return error( (this as Error).Errors );
 
             }
             throw new Exception( "Unexpected case" );
@@ -137,23 +114,6 @@ namespace lqd.net.domain.results {
         private class NotFound
                        : RemoveResult<P> {}
 
-        private class Error
-                       : RemoveResult<P> {
-
-            public Error
-                    ( IEnumerable<ResultError> errors ) {
-
-                if( errors == null ) throw new ArgumentNullException( nameof( errors ) );
-                if( !errors.Any() ) throw new ArgumentException( nameof( errors ) );
-
-
-                this.Errors = errors;
-            }
-
-            public readonly IEnumerable<ResultError> Errors;
-
-        }
-
         private RemoveResult() {}
 
     }
@@ -173,8 +133,7 @@ namespace lqd.net.domain.results {
                 task
                     .Match(
                         success: async value => RemoveResult<Q>.WasSuccess( await f( value )),
-                        notFound: () => Task.FromResult( RemoveResult<Q>.WasNotFound() ),
-                        error: errors => Task.FromResult( RemoveResult<Q>.WasError( errors ))
+                        notFound: () => Task.FromResult( RemoveResult<Q>.WasNotFound() )                        
                     );
         }
 
@@ -214,8 +173,7 @@ namespace lqd.net.domain.results {
                 task
                     .Match(
                         success: async value => { await f( value ); return task; } , 
-                        notFound: () => Task.FromResult( RemoveResult<Q>.WasNotFound() ), 
-                        error: errors => Task.FromResult( RemoveResult<Q>.WasError( errors ) )  
+                        notFound: () => Task.FromResult( RemoveResult<Q>.WasNotFound() )                        
                     );
         }
 
@@ -225,10 +183,9 @@ namespace lqd.net.domain.results {
         public static async Task<Q> MatchAsync<P,Q>
                                      ( this Task<RemoveResult<P>> task
                                      , Func<P,Q> success 
-                                     , Func<Q> notFound
-                                     , Func<IEnumerable<ResultError>,Q> error ) {
+                                     , Func<Q> notFound ) {
 
-            return (await task).Match( success, notFound, error );
+            return (await task).Match( success, notFound );
          
         }
 
@@ -236,10 +193,9 @@ namespace lqd.net.domain.results {
         public static async void MatchAsync<P>
                                      ( this Task<RemoveResult<P>> task
                                      , Action<P> success
-                                     , Action notFound             
-                                     , Action<IEnumerable<ResultError>> error ) {
+                                     , Action notFound ) {
 
-            (await task).Match( success, notFound, error );
+            (await task).Match( success, notFound );
          
         }
 
